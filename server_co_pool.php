@@ -9,11 +9,7 @@ error_reporting(E_ALL);
 $pool = new Swoole\Process\Pool(2);
 $pool->set(['enable_coroutine' => true]);
 $pool->on("WorkerStart", function ($pool, $id) {
-    $server = new Swoole\Coroutine\Http\Server('0.0.0.0', 9509, true, true);
-    $server->set([
-        'ssl_key_file' => __DIR__ . '/ssl/ssl.key',
-        'ssl_cert_file' => __DIR__ . '/ssl/ssl.crt',
-    ]);
+    $server = new Swoole\Coroutine\Http\Server('0.0.0.0', 9509, false, true);
     $server->handle('/', function (Request $req, Response $resp) {
         //websocket
         if (isset($req->header['upgrade']) and $req->header['upgrade'] == 'websocket') {
