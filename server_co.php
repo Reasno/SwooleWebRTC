@@ -7,11 +7,11 @@ const WEBROOT = __DIR__ . '/web';
 $connnection_map = array();
 error_reporting(E_ALL);
 Co\run(function () {
-    $server = new Swoole\Coroutine\Http\Server('0.0.0.0', 9509, true);
-    $server->set([
-        'ssl_key_file' => __DIR__ . '/ssl/ssl.key',
-        'ssl_cert_file' => __DIR__ . '/ssl/ssl.crt',
-    ]);
+    $server = new Swoole\Coroutine\Http\Server('0.0.0.0', 9509, false);
+    // $server->set([
+    //     'ssl_key_file' => __DIR__ . '/ssl/ssl.key',
+    //     'ssl_cert_file' => __DIR__ . '/ssl/ssl.crt',
+    // ]);
     $server->handle('/', function (Request $req, Response $resp) {
         //websocket
         if (isset($req->header['upgrade']) and $req->header['upgrade'] == 'websocket') {
